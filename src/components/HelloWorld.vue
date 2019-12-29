@@ -1,56 +1,46 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}---{{name}}--{{getName}}</h1>
-    <p>{{initNum}}</p>
-    <button @click="add">给数字加1</button>
-    <p>{{msg}}</p>
-    <button @click="sendMsg">改变msg</button>
+    <h1>{{ msg }}</h1>
+    <p>
+      For guide and recipes on how to configure / customize this project,<br>
+      check out the
+      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+    </p>
+    <h3>Installed CLI Plugins</h3>
+    <ul>
+      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
+      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
+    </ul>
+    <h3>Essential Links</h3>
+    <ul>
+      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
+      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
+      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
+      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
+      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
+    </ul>
+    <h3>Ecosystem</h3>
+    <ul>
+      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
+      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
+      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
+      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
+      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
+    </ul>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator';
-
-@Component
-export default class HelloWorld extends Vue {
-  // props
-  @Prop() private msg!: string;
-  @Prop() private name!: string;
-
-  // data
-  private initNum: number = 0;
-  //computed 使用get set函数
-  get getName(){
-    return this.name+"**computed"
-  }
-  // watch
-  @Watch("msg")
-  changeName(newV:string, oldV:string){
-    console.log(`change txt: ${oldV} to ${newV}`)
-  }
-  // 生命周期
-  created(){
-    console.log("created阶段");
-  }
-
-  // methods
-  private add(){
-    this.initNum ++;
-  }
-  private changeMsg(){
-    this.msg = "this is new msg"
-  }
-  @Emit()
-  private sendMsg(msg:string):string{
-    console.log("sendmsg");
-    msg = "father"
-    return "this is send to father message"
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped>
 h3 {
   margin: 40px 0 0;
 }
