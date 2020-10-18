@@ -1,68 +1,98 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}---{{name}}--{{getName}}</h1>
-    <p>{{initNum}}</p>
-    <button @click="add">给数字加1</button>
-    <p>{{msg}}</p>
-    <button @click="sendMsg">改变msg</button>
-  </div>
+<div class="hello">
+    <h1>{{ msg }}</h1>
+    <p class="val">子组件接收到v-model的值，{{value}}</p>
+    <button @click="changeModelValue">通过子组件的按钮改变v-model的值</button>
+    <p class="desc">
+        For a guide and recipes on how to configure / customize this project,<br>
+        check out the
+    </p>
+    <img class="image" src="../assets/logo.png" alt="">
+    <input type="text" v-model="username">
+    <input type="text" v-model="password">
+</div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator';
+import Vue from 'vue';
+import {
+    resizeFont
+} from "../config/utils"
 
-@Component
-export default class HelloWorld extends Vue {
-  // props
-  @Prop() private msg!: string;
-  @Prop() private name!: string;
-
-  // data
-  private initNum: number = 0;
-  //computed 使用get set函数
-  get getName(){
-    return this.name+"**computed"
-  }
-  // watch
-  @Watch("msg")
-  changeName(newV:string, oldV:string){
-    console.log(`change txt: ${oldV} to ${newV}`)
-  }
-  // 生命周期
-  created(){
-    console.log("created阶段");
-  }
-
-  // methods
-  private add(){
-    this.initNum ++;
-  }
-  private changeMsg(){
-    this.msg = "this is new msg"
-  }
-  @Emit()
-  private sendMsg(msg:string):string{
-    console.log("sendmsg");
-    msg = "father"
-    return "this is send to father message"
-  }
-}
+export default Vue.extend({
+    name: 'HelloWorld',
+    props: {
+        msg: String,
+        value: {
+            default: ""
+        }
+    },
+    data() {
+        return {
+            username: "",
+            password: ""
+        }
+    },
+    created() {
+        // 移动端配置html的font-size
+        // resizeFont()
+    },
+    methods: {
+        changeModelValue() {
+            this.$emit("input", "传递给v-model的新值")
+        }
+    }
+});
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+
+<style lang="scss" scoped>
+$titleFontSize:32px;
+$red:#ff0000;
+/* $rem是根据设计稿的宽度设定，设计稿宽度/10 */
+$rem:75;
+
+@function px2rem($px) {
+    @return ($px/$rem)*1rem;
+}
+
+.hello {
+    border: 1px solid #ccc;
+
+    h1 {
+        font-size: $titleFontSize;
+        color: $red;
+    }
+
+    .val {
+        @include px2px(font-size, 30)
+    }
+
+    .desc {
+        @include important-text
+    }
+
+    .image {
+        width: px2rem(200);
+    }
+}
+
 h3 {
-  margin: 40px 0 0;
+    margin: 40px 0 0;
 }
+
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
+
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
+
 a {
-  color: #42b983;
+    color: #42b983;
 }
 </style>

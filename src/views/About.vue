@@ -1,23 +1,23 @@
 <template>
-  <div class="about">
+<div class="about">
     <h1>This is an about page</h1>
-    <HelloWorld :msg=msg @sendMsg="sendMsgAbout" name="aboutPage"/>
-  </div>
+    <p>通过eventBus给Alert组件传递数据</p>
+    <button @click="greet(message)">点击显示弹出框</button>
+</div>
 </template>
-<script lang="ts">
-import { Component, Vue, Prop, Watch} from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue';
-@Component({
-  components:{
-    HelloWorld,
-  }
-})
-export default class About extends Vue{
-  private initNum:number = 0;
-  private msg:string = "this is about page"
 
-  private sendMsgAbout(val:string){
-    this.msg = val
-  }
+<script>
+export default {
+    name: "about",
+    data() {
+        return {
+            message: "about页面欢迎访问！"
+        }
+    },
+    methods: {
+        greet(msg) {
+            this.$bus.$emit("alert", msg)
+        }
+    }
 }
 </script>
