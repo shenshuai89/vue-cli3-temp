@@ -3,13 +3,13 @@
     {{oneKey}}
     <p>{{somebody}}</p>
     <div>
-      <button @click="sendToFu">点击触发父组件的事件</button>
+      <button @click="toSon">点击触发父组件的事件</button>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import { Component, Vue, Prop, Watch, Emit } from "vue-property-decorator";
 // 组件传递的props属性
 @Component({
   props: {
@@ -40,6 +40,11 @@ export default class Zizujian extends Vue {
   }
   sendToFu() {
     this.$emit("toSon", "");
+  }
+  @Emit()
+  toSon():string{
+    console.log("zizujian emit method");
+    return "this is zizujian emit method"
   }
 }
 </script>

@@ -15,7 +15,7 @@
       <p class="use_sass">使用sass样式</p>
       <span class="mixin">这是比较重要的文章</span>
     </div>
-    <Zizujian :oneKey="oneKeyObj" @toSon="FuChuanZi"></Zizujian>
+    <Zizujian :oneKey="oneKeyObj" @to-son="FuChuanZi"></Zizujian>
   </div>
 </template>
 
